@@ -1,0 +1,44 @@
+﻿<Window x:Class="WebBrowserProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        
+        xmlns:local="clr-namespace:WebBrowserProject"
+        
+
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="155*"/>
+            <ColumnDefinition Width="362*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="Browse!" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Height="38" Command="{Binding SiteGetirCommand}"/>
+        <Button Content="Veri Getir" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Width="75" Command="{Binding VeriGetirCommand}"/>
+        <ListView  ItemsSource="{Binding PageList}" SelectedItem="{Binding SelectedItem,Mode=TwoWay}" HorizontalAlignment="Left" Height="190" Margin="90,0,0,0" VerticalAlignment="Top" Width="417" Grid.ColumnSpan="2">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid >
+                        <Grid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=DataContext.DoubleClickCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"/>
+                        </Grid.InputBindings>
+                        <TextBlock Text="{Binding Tarih}" Height="30" Width="200" HorizontalAlignment="Stretch"/>
+                        <TextBlock Text="{Binding Baslik}" Height="30" Width="900" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <WebBrowser local:WebBrowserHelper.Url="{Binding Url}"  HorizontalAlignment="Left" Height="500" Margin="0,195,0,0" VerticalAlignment="Top" Width="1300" Grid.ColumnSpan="2"/>
+        
+
+
+
+
+    </Grid>
+</Window>
